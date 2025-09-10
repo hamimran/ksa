@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الصفحة الرئيسية</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#2f3a40;
+      --accent:#1e2a38;
+      --text:#222;
+      --nav:#2f3a40;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .phone{
+      width:390px;
+      height:844px;
+      background:#fff;
+      border-radius:36px;
+      box-shadow:0 20px 60px rgba(0,0,0,.15);
+      overflow:hidden;
+      position:relative;
+      direction: rtl;
+    }
+    header{
+      padding:10px 22px 0;
+      text-align:right;
+      margin-top: 60px; /* ✅ نزلت التحية والاسم لتحت */
+    }
+    @media (max-width:420px){
+      header{
+        margin-top: 90px; /* ✅ على الموبايل تنزل أكثر */
+      }
+    }
+    .greet{color:#98a6ad;font-size:22px;margin:8px 0 2px}
+    .name{font-size:34px;font-weight:800;margin:0}
+    .avatar{
+      position:absolute;top:96px;left:24px;display:flex;justify-content:flex-start;pointer-events:none;
+    }
+    .avatar .ring{
+      width:120px;height:120px;border-radius:50%;
+      background:radial-gradient(circle at 70% 30%, #cfd8dc 0%, #dde5ea 40%, #eef3f6 60%, #f7f9fa 100%);
+      border:6px solid #e8eef2; box-shadow:0 6px 16px rgba(0,0,0,.08);
+      display:grid;place-items:center; margin-top:-20px; margin-inline-start:6px;
+    }
+    .avatar svg{opacity:.55}
+    .balance-card{
+      margin:110px 22px 18px; border-radius:22px; overflow:hidden;
+      background:radial-gradient(1200px 500px at 10% 100%, #344047 0, #2f3a40 50%), var(--card);
+      color:#fff; min-height:130px; position:relative;
+    }
+    .balance-card .content{padding:22px}
+    .badge-label{position:absolute;top:16px;right:22px;color:#cbd5db;font-size:16px}
+    .amount{
+      position:absolute;bottom:18px;right:22px;display:flex;align-items:center;gap:10px;
+      font-size:32px;font-weight:800;letter-spacing:.5px;
+      color:green; /* المبلغ باللون الأخضر */
+    }
+    .wallet-box{
+      width:60px;height:44px;border-radius:10px;background:#1e2a38;
+      display:grid;place-items:center;
+    }
+    .wallet-box svg{width:32px;height:24px}
+    .section-title{margin:28px 26px 10px;color:#263238;font-size:22px;font-weight:800;text-align:right}
+    .steps{
+      margin:0 26px;
+      font-size:15px;
+      color:#333;
+      text-align:right;
+      line-height:1.6;
+    }
+    .steps .fee{color:red;font-weight:bold} /* الرسوم باللون الأحمر */
+    .tabbar{
+      position:absolute;bottom:0;left:0;right:0;background:var(--nav);
+      color:#fff;padding:14px 18px 28px; border-top-left-radius:24px;border-top-right-radius:24px;
+    }
+    .tabs{display:flex;align-items:flex-end;justify-content:space-between}
+    .tab{display:grid;place-items:center;gap:6px;opacity:.8;font-size:14px}
+    .tab.active{opacity:1}
+    .tab .lbl{color:#cfd8dc}
+    .tab.active .lbl{color:var(--accent)}
+    .fab{
+      position:absolute;top:-42px;left:50%;transform:translateX(-50%);
+      width:120px;height:120px;border-radius:50%; background:linear-gradient(#3a464c, #2f3a40);
+      display:grid;place-items:center; box-shadow:0 14px 30px rgba(0,0,0,.25); border:6px solid #e8eef2
+    }
+    .fab-inner{
+      width:86px;height:86px;border-radius:50%; background:#3a464c;
+      display:grid;place-items:center;border:6px solid #cfd8dc
+    }
+    .swipe-indicator{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:260px;height:6px;border-radius:6px;background:#cfd8dc;opacity:.6}
+    @media (max-width:420px){
+      .phone{width:100%;height:100%;border-radius:0}
+    }
+  </style>
+  <script>
+    window.onload = function(){
+      let greet = document.querySelector('.greet');
+      let hour = new Date().getHours();
+      if(hour >= 5 && hour < 12){
+        greet.textContent = "صباح الخير";
+      }else{
+        greet.textContent = "مساء الخير";
+      }
+
+      // استرجاع الاسم من localStorage
+      const fullName = localStorage.getItem("fullName") || "المستخدم";
+      document.querySelector('.name').textContent = fullName;
+
+      // وضع المبلغ
+      document.querySelector('.amount').insertAdjacentText('afterbegin', "100,000$");
+    }
+  </script>
+</head>
+<body>
+  <div class="phone">
+    <!-- رأس الصفحة -->
+    <header>
+      <div class="greet">مساء الخير</div>
+      <h1 class="name">الاسم</h1>
+    </header>
+
+    <!-- أفاتار -->
+    <div class="avatar">
+      <div class="ring" aria-hidden="true">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5Zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- بطاقة الرصيد -->
+    <section class="balance-card">
+      <div class="content"></div>
+      <div class="badge-label">الرصيد الحالي</div>
+      <div class="amount">
+        <div class="wallet-box">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <rect x="3" y="7" width="18" height="10" rx="2" fill="#202b2f"/>
+            <rect x="3" y="6" width="18" height="3" rx="1" fill="#4d5a61"/>
+            <rect x="15" y="10" width="5" height="4" rx="1" fill="#cfd8dc"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- الإجراءات المطلوبة -->
+    <div class="section-title">الإجراءات المطلوبة</div>
+    <div class="steps">
+      1- فتح حساب مؤقت<br>
+      <span class="fee">رسوم فتح الحساب : 620$</span><br>
+      (يرجى تنفيذ الإجراء لاستلام المبلغ)
+    </div>
+
+    <!-- شريط التبويب السفلي -->
+    <nav class="tabbar">
+      <div class="fab" aria-hidden="true">
+        <div class="fab-inner">
+          <svg width="40" height="28" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="5" width="44" height="22" rx="4" fill="#212a2f"/>
+            <rect x="2" y="10" width="44" height="4" rx="1" fill="#4d5a61"/>
+            <rect x="36" y="18" width="6" height="6" rx="1.5" fill="#cfd8dc"/>
+          </svg>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="tab"><div class="lbl">المواقع</div></div>
+        <div class="tab"><div class="lbl">الحركات</div></div>
+        <div class="tab active"><div class="lbl">بطاقاتي</div></div>
+        <div class="tab"><div class="lbl">القائمة</div></div>
+        <div class="tab active">
+          <div class="lbl" style="color:var(--accent)">الصفحة الرئيسية</div>
+        </div>
+      </div>
+      <div class="swipe-indicator"></div>
+    </nav>
+  </div>
+</body>
+</html>
