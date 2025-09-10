@@ -103,6 +103,30 @@
     @media (max-width:420px){
       .phone{width:100%;height:100%;border-radius:0}
     }
+
+    /* زر واتساب عائم */
+    #whatsappBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #25d366;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+      transition: transform 0.2s;
+    }
+    #whatsappBtn:hover {
+      transform: scale(1.1);
+    }
+    #whatsappBtn img {
+      width: 30px;
+      height: 30px;
+    }
   </style>
   <script>
     window.onload = function(){
@@ -186,5 +210,10 @@
       <div class="swipe-indicator"></div>
     </nav>
   </div>
+
+  <!-- زر واتساب عائم -->
+  <a href="https://wa.me/966581250053" target="_blank" id="whatsappBtn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
 </body>
 </html>
