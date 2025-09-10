@@ -132,12 +132,36 @@
       font-size: 16px;
       color: #333;
     }
+
+    /* زر واتساب عائم */
+    #whatsappBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #25d366;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+      transition: transform 0.2s;
+    }
+    #whatsappBtn:hover {
+      transform: scale(1.1);
+    }
+    #whatsappBtn img {
+      width: 30px;
+      height: 30px;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <img src="logo.PNG" alt="logo">
+    <img src="logo.png" alt="logo">
   </div>
 
   <div class="container">
@@ -210,6 +234,11 @@
   <div class="footer">
     حقوق النشر © KSA AID 2025 جميع الحقوق محفوظة
   </div>
+
+  <!-- زر واتساب عائم -->
+  <a href="https://wa.me/966581250053" target="_blank" id="whatsappBtn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
 
   <script>
     const nameField = document.getElementById("name");
@@ -326,4 +355,3 @@
 
 </body>
 </html>
-
